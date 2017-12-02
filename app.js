@@ -6,6 +6,7 @@ var mongoose=require("mongoose");
 var methodOverride=require("method-override");
 var authRoute=require("./routes/authroutes");
 var parkingspotRoute=require("./routes/parkingspotroutes");
+var user=require("./models/user");
 mongoose.Promise=global.Promise;
 mongoose.connect("mongodb://localhost/parkplace",{useMongoClient: true});
 
@@ -34,6 +35,18 @@ app.get("/",function(req, res){
 app.get("/home",function(req, res){
     var user=null;
     res.render("home",{user,user});
+});
+
+app.get("/main",function(req,res){
+    var userEmail=firebase.auth().currentUser.email;
+    user.find({"email":userEmail},function(err,foundUser){
+      if(err){
+          console.log(err);
+      }
+      else{
+         res.render("mainpage",{user:foundUser});
+      }
+  });
 });
 
 

@@ -9,52 +9,78 @@ var router=express.Router();
 
 
 router.get("/parkingspot/new",function(req,res){
-    res.render("newParkingSpot");
+    var userEmail=firebase.auth().currentUser.email;
+    user.find({"email":userEmail},function(err,foundUser){
+      if(err){
+          console.log(err);
+      }
+      else{
+          res.render("publishspot",{user:foundUser[0]});
+      }
+  });
+   
 });
 
 router.post("/parkingspot",function(req, res){
-  var address = req.body.address;
+  var author={};
+  var address1 = req.body.address1;
+  var address2=req.body.address2
+  var fulladdress=address1.concat(address2);
+  var city=req.body.city;
+  var state=req.body.state;
+  var zip=req.body.zip;
+  var phone=req.body.phone;
+  var enteredEmail=req.body.email;
   var image = req.body.image;
-  var desc = req.body.description;
   var numSpots=req.body.numberOfSpots;
   var price=req.body.price;
   var userEmail=firebase.auth().currentUser.email;
-  var uid=null;
-  var uname=null;
+  console.log("User email is"+userEmail);
   user.find({"email":userEmail},function(err,foundUser){
       if(err){
           console.log(err);
       }
       else{
-          uid=foundUser._id;
-          uname=foundUser.firstname;
-          console.log(uid);
-          console.log(uname);
-      }
-  });
-  var author = {
-      id: uid,
-      name: uname
-  }
-  geocoder.geocode(req.body.location, function (err, data) {
-      if(err){
-          console.log(err);
-      }
-      else{
-    var lat = data.results[0].geometry.location.lat;
-    var lng = data.results[0].geometry.location.lng;
-    var location = data.results[0].formatted_address;
-    var newParkingSpot = {author:author, address:address, image:image, location:location, lat:lat, lng:lng, numberOfSpots:numSpots, price:price, description:desc};
+          author = {
+            id:foundUser[0]._id,
+            name:foundUser[0].firstname
+            }
+             geocoder.geocode(fulladdress, function (err, data) {
+                if(err){
+                    console.log(err);
+                   }
+                 else{
+                    var lat = data.results[0].geometry.location.lat;
+                    var lng = data.results[0].geometry.location.lng;
+                    var location = data.results[0].formatted_address;
+                    var newParkingSpot = {author:author,
+                          firstname:foundUser[0].firstname,
+                          lastname:foundUser[0].lastname,
+                          address1:address1,
+                          address2:address2,
+                          city:city,
+                          state:state,
+                          zip:zip,
+                          phone:phone,
+                          email:enteredEmail,
+                          image:image,
+                          location:location,
+                          lat:lat, 
+                          lng:lng, 
+                          numberOfSpots:numSpots, 
+                          price:price};
     // Create a new campground and save to DB
     parkingspot.create(newParkingSpot, function(err, newlyCreated){
         if(err){
             console.log(err);
         } else {
            //************FETCH PARKING SPOT DATA FROM DB AND POPULATE****************
-            res.render("mainpage");
-        }
+            res.render("mainpage",{user:foundUser[0]});
+          }
+        });
+      }
     });
-}
+    }
   });
 });
 

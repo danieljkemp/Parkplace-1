@@ -53,7 +53,9 @@ firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
         }
         else{
                //console.log(firebase.auth().currentUser.email);
-               res.render("mainpage",{user:foundUser});
+               console.log("Login route");
+               console.log(foundUser)
+               res.render("mainpage",{user:foundUser[0]});
         }
     });
 }).catch(function(error) {
