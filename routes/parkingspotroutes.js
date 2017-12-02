@@ -30,9 +30,10 @@ router.post("/parkingspot",function(req, res){
   var state=req.body.state;
   var zip=req.body.zip;
   var phone=req.body.phone;
-  var enteredEmail=req.body.email;
+  var enteredEmail=req.body.enteredEmail;
+  var date=req.body.date;
   var image = req.body.image;
-  var numSpots=req.body.numberOfSpots;
+  var numSpots=req.body.numSpots;
   var price=req.body.price;
   var userEmail=firebase.auth().currentUser.email;
   console.log("User email is"+userEmail);
@@ -63,6 +64,7 @@ router.post("/parkingspot",function(req, res){
                           zip:zip,
                           phone:phone,
                           email:enteredEmail,
+                          date:date,
                           image:image,
                           location:location,
                           lat:lat, 
@@ -85,28 +87,65 @@ router.post("/parkingspot",function(req, res){
 });
 
 
+router.get("/parkingspot/publisher/:id",function(req,res){
+    var id=req.params.id;
+    user.findById(id,function(err,foundUser){
+        if(err){
+            console.log(err);
+        }
+        else{
+            parkingspot.find({author:{"id":foundUser._id,"name":foundUser.firstname}},function(err,foundSpots){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    res.render("userpublishedspots",{user:foundUser,parkingspots:foundSpots});
+                }
+            });
+        }
+    });
+    
+});
+
+
 router.get("/parkingspot/:id",function(req, res){
     var id=req.params.id;
-    parkingspot.findById(req.params.id,function(err, foundParkingSpot){
-       if(err){
-           console.log("Could not display parkingspot page");
-       } 
-       else{
-           res.render("parkingspotpage",{parkingspot:foundParkingSpot});
-       }
+    var userEmail=firebase.auth().currentUser.email;
+        user.find({"email":userEmail},function(err,foundUser){
+            if(err){
+                 console.log(err);
+                }
+             else{
+                parkingspot.findById(req.params.id,function(err, foundParkingSpot){
+                 if(err){
+                    console.log("Could not display parkingspot page");
+                    } 
+                 else{
+                    res.render("viewspot",{user:foundUser[0],parkingspot:foundParkingSpot});
+                }
+             });
+        }
     });
 });
 
 
 //Edit ParkingSpot route
-router.get("parkingspot/:id/edit",function(req, res){
-    parkingspot.findById(req.params.id,function(err, foundParkingSpot){
-        if(err){
+router.get("/parkingspot/:id/edit",function(req, res){
+    var userEmail=firebase.auth().currentUser.email;
+    user.find({"email":userEmail},function(err,foundUser){
+      if(err){
+          console.log(err);
+      }
+      else{
+           parkingspot.findById(req.params.id,function(err, foundParkingSpot){
+            if(err){
             console.log(err);
-        }
+            }
         else{
-            res.render("edit",{parkingspot:foundParkingSpot});
-        }
+            res.render("editspot",{user:foundUser,parkingspot:foundParkingSpot});
+            }
+        });
+      }
     });
 });
 
@@ -138,14 +177,23 @@ router.put("/parkingspot/:id",function(req, res){
 //Delete Parking Spot
 router.delete("/parkingspot/:id",function(req, res){
     var id=req.params.id;
-    parkingspot.findByIdAndRemove(id,function(err){
-       if(err){
-           res.redirect("/hikespots");
-       } 
-       else{
-           res.redirect("/hikespots")
-       }
-    });
+    var userEmail=firebase.auth().currentUser.email;
+    user.find({"email":userEmail},function(err,foundUser){
+      if(err){
+          console.log(err);
+      }
+      else{
+        parkingspot.findByIdAndRemove(id,function(err){
+          if(err){
+           console.log(err);
+          } 
+        else{
+           res.redirect("/parkingspot/publisher/"+foundUser[0]._id);
+          }
+        });
+      }
+  });
 });
+
 
 module.exports=router;

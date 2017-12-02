@@ -19,6 +19,7 @@ var parkingspotSchema=new mongoose.Schema({
    zip:String,
    phone:Number,
    email:String,
+   date:Date,
    location:String,
    lat:Number, 
    lng:Number, 

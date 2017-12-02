@@ -14,6 +14,7 @@ mongoose.connect("mongodb://localhost/parkplace",{useMongoClient: true});
 
 app.set("view engine", "ejs");
 app.use(body_parser.urlencoded({extended:true}));
+app.use(methodOverride("_method"));
 app.use(express.static("public"));
 
 var config = {
@@ -44,7 +45,7 @@ app.get("/main",function(req,res){
           console.log(err);
       }
       else{
-         res.render("mainpage",{user:foundUser});
+         res.render("mainpage",{user:foundUser[0]});
       }
   });
 });

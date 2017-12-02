@@ -9,8 +9,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/homepage.css">
-    <link rel="stylesheet" href="css/mainpage.css">
+    <link rel="stylesheet" href="/css/homepage.css">
+    <link rel="stylesheet" type="text/css" href="/css/mainpage.css">
   </head>
   <body data-spy="scroll" data-target="#navbar" data-offset="150">
    <nav class="navbar navbar-toggleable-md navbar-light bg-faded fixed-top" id="navbar">
@@ -21,16 +21,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#jumbotron">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#how">How It Works</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#footer">Contact</a>
+            <a class="nav-link" href="/main">Home <span class="sr-only">(current)</span></a>
           </li>
         </ul>
        <% if(user==null){%>
@@ -155,14 +146,7 @@
           <div class="list-group">
             <a href="/main" class="list-group-item active">View spots</a>
             <a href="/parkingspot/new" class="list-group-item">Publish my spaces</a>
-            <!-- <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a> -->
+            <a href="/parkingspot/publisher/<%= user._id %>" class="list-group-item">View published spots</a>
           </div>
         </div><!--/span-->
       </div><!--/row-->

@@ -67,3 +67,12 @@ footer {
     width: 50%; /* 6 columns */
   }
 }
+
+#map {
+    height: 400px;
+    width: 100%;
+}
+
+.thumbnail .indivCamp{
+  height:70%;
+}

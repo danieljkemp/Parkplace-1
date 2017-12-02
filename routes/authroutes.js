@@ -52,9 +52,6 @@ firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
             console.log("Could not find user");
         }
         else{
-               //console.log(firebase.auth().currentUser.email);
-               console.log("Login route");
-               console.log(foundUser)
                res.render("mainpage",{user:foundUser[0]});
         }
     });

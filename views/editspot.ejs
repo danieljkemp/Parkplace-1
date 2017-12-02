@@ -52,33 +52,33 @@
           <div class="col-sm-12">
             <div class="form-group">
               <label for="example-tel-input" class="col-form-label">Address Line1</label>
-              <input class="form-control" type="text" name="address1" placeholder="Street address, P.O. box, company name, c/o" id="example-tel-input" required>
+              <input class="form-control" type="text" name="address1" value="<%= parkingspot.address1 %>" placeholder="Street address, P.O. box, company name, c/o" id="example-tel-input" required>
             </div>
             <div class="form-group">
               <label for="example-tel-input" class="col-form-label">Address Line2</label>
-              <input class="form-control" type="text" name="address2" placeholder="Apartment, suite , unit, building, floor, etc." id="example-tel-input">
+              <input class="form-control" type="text" name="address2" value="<%= parkingspot.address2 %>" placeholder="Apartment, suite , unit, building, floor, etc." id="example-tel-input">
             </div>
             <div class="row">
               <div class="form-group col-sm-4">
                 <label for="example-text-input" class="col-form-label">City</label>
-                <input class="form-control" type="text" name="city" placeholder="Enter City Here.." id="example-text-input" required>
+                <input class="form-control" type="text" name="city" value="<%= parkingspot.city %>" placeholder="Enter City Here.." id="example-text-input" required>
               </div>
               <div class="form-group col-sm-4"> 
                 <label for="example-text-input" class="col-form-label">State</label>
-                <input class="form-control" type="text" name="state" placeholder="Enter State Here.." id="example-text-input" required>
+                <input class="form-control" type="text" name="state" value="<%= parkingspot.state %>" placeholder="Enter State Here.." id="example-text-input" required>
               </div>
               <div class="form-group col-sm-4">
                 <label for="example-text-input" class="col-form-label">Zip</label>
-                <input class="form-control" type="text" name="zip" placeholder="Enter Zip Here.." id="example-text-input" required>
+                <input class="form-control" type="text" name="zip" value="<%= parkingspot.zip %>" placeholder="Enter Zip Here.." id="example-text-input" required>
               </div>
             </div>
             <div class="form-group">
               <label for="example-tel-input" class="col-form-label">Telephone</label>
-              <input class="form-control" type="tel" name="phone" placeholder="Enter Phone Number Here.." id="example-tel-input" required>
+              <input class="form-control" type="tel" name="phone" value="<%= parkingspot.phone %>" placeholder="Enter Phone Number Here.." id="example-tel-input" required>
             </div>
             <div class="form-group">
               <label for="example-email-input" class="col-form-label">Email</label>
-              <input class="form-control" type="email" name="enteredEmail" placeholder="Enter Email Address Here.." id="example-email-input" required>
+              <input class="form-control" type="email" name="enteredEmail" value="<%= parkingspot.email %>" placeholder="Enter Email Address Here.." id="example-email-input" required>
             </div>
             <div class="form-group">
               <h5>Enter exact date and time to show the availability of your parking spot</h5>
@@ -86,18 +86,18 @@
             <div class="form-group row">
               <label for="example-date-input" class="col-2 col-form-label">Date</label>
               <div class="col-10">
-                <input class="form-control" type="date" name="date" value="2011-08-19" id="example-date-input" required>
+                <input class="form-control" type="date" name="date" value="<%= parkingspot.date %>" id="example-date-input" required>
               </div>
             </div>
             <div class="form-group row">
               <label for="example-time-input" class="col-2 col-form-label">Time</label>
               <div class="col-10">
-                <input class="form-control" type="time" name="time" value="13:45:00" id="example-time-input" required>
+                <input class="form-control" type="time" name="time" id="example-time-input" required>
               </div>
             </div>
             <div class="form-group">
               <label for="exampleSelect1">Number of Parking Spots Available</label>
-                <select class="form-control" name="numSpots" id="exampleSelect1" required>
+                <select class="form-control" name="numSpots" value="<%= parkingspot.numberOfSpots %>" id="exampleSelect1" required>
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -115,7 +115,7 @@
               <div class="col-6">
                 <div class="input-group">
                   <span class="input-group-addon">$</span>
-                  <input type="number" value="1000" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" name="price" class="form-control" required/>
+                  <input type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" name="price" value="<%= parkingspot.price %>" class="form-control" required/>
                 </div>
               </div>
             </div>
