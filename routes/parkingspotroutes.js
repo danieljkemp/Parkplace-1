@@ -86,7 +86,7 @@ router.post("/parkingspot",function(req, res){
   });
 });
 
-
+//Show all parking spots published by user
 router.get("/parkingspot/publisher/:id",function(req,res){
     var id=req.params.id;
     user.findById(id,function(err,foundUser){
@@ -107,7 +107,7 @@ router.get("/parkingspot/publisher/:id",function(req,res){
     
 });
 
-
+//Show specific parking spot
 router.get("/parkingspot/:id",function(req, res){
     var id=req.params.id;
     var userEmail=firebase.auth().currentUser.email;
@@ -153,7 +153,8 @@ router.get("/parkingspot/:id/edit",function(req, res){
 
 //Update ParkingSpot  route
 router.put("/parkingspot/:id",function(req, res){
-    geocoder.geocode(req.body.location, function (err, data) {
+    var fulladdress=req.body.address1.concat(req.body.address2);
+    geocoder.geocode(fulladdress, function (err, data) {
     if(err){
         console.log(err);
     }
@@ -161,12 +162,26 @@ router.put("/parkingspot/:id",function(req, res){
     var lat = data.results[0].geometry.location.lat;
     var lng = data.results[0].geometry.location.lng;
     var location = data.results[0].formatted_address;
-    var newData = {address:req.body.address, image:req.body.image, location:req.body.location, lat:lat, lng:lng, numberOfSpots:req.body.numSpots, price:req.body.price, description:req.body.desc};
-    parkingspot.findByIdAndUpdate(req.params.id, {$set: newData}, function(err, hikesite){
+    var newData ={
+                          address1:req.body.address1,
+                          address2:req.body.address2,
+                          city:req.body.city,
+                          state:req.body.state,
+                          zip:req.body.zip,
+                          phone:req.body.phone,
+                          email:req.body.enteredEmail,
+                          date:req.body.date,
+                          image:req.body.image,
+                          location:location,
+                          lat:lat, 
+                          lng:lng, 
+                          numberOfSpots:req.body.numSpots, 
+                          price:req.body.price};
+    parkingspot.findByIdAndUpdate(req.params.id, {$set: newData}, function(err, updatedSpot){
         if(err){
            console.log(err);
         } else {
-            res.redirect("/parkingspot/" + parkingspot._id);
+            res.redirect("/parkingspot/" + updatedSpot._id);
         }
     });
    }
