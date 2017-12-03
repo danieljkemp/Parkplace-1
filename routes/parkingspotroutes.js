@@ -225,30 +225,39 @@ router.delete("/parkingspot/:id", function(req, res) {
 
 //Search for parking spots
 router.post("/parkingspot/search", function(req, res) {
+    var email = firebase.auth().currentUser.email;
     var address = req.body.searchaddress;
-    geocoder.geocode(address, function(err, data) {
+    user.find({ "email": email }, function(err, foundUser) {
         if (err) {
             console.log(err);
         }
         else {
-            var lat = data.results[0].geometry.location.lat;
-            var lng = data.results[0].geometry.location.lng;
-            parkingspot.find({
-                loc: {
-                    $near: {
-                        $geometry: {
-                            type: "Point",
-                            coordinates: [lng, lat]
-                        },
-                        $maxDistance: 3000
-                    }
-                }
-            }).limit(10).exec(function(err, locations) {
-                if (err) {
-                    return res.json(500, err);
-                }
 
-                console.log(locations);
+            geocoder.geocode(address, function(err, data) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    var lat = data.results[0].geometry.location.lat;
+                    var lng = data.results[0].geometry.location.lng;
+                    parkingspot.find({
+                        loc: {
+                            $near: {
+                                $geometry: {
+                                    type: "Point",
+                                    coordinates: [lng, lat]
+                                },
+                                $maxDistance: 3000
+                            }
+                        }
+                    }).limit(10).exec(function(err, locations) {
+                        if (err) {
+                            return res.json(500, err);
+                        }
+
+                        res.render("searchresults", { parkingspots: locations, user: foundUser[0] });
+                    });
+                }
             });
         }
     });
