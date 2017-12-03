@@ -35,7 +35,6 @@ router.post("/parkingspot", function(req, res) {
     var numSpots = req.body.numSpots;
     var price = req.body.price;
     var userEmail = firebase.auth().currentUser.email;
-    console.log("User email is" + userEmail);
     user.find({ "email": userEmail }, function(err, foundUser) {
         if (err) {
             console.log(err);

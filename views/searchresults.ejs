@@ -67,7 +67,7 @@
                   
                   var map = new google.maps.Map(document.getElementById('map'), {
                   zoom: 15,
-                  center: {lat: 43.0391534, lng: -76.1351158},
+                  center: {lat: parkspots[0].lat, lng: parkspots[0].lng},
                   mapTypeId: google.maps.MapTypeId.ROADMAP
                   });
                   parkspots.forEach(function (spot) {
@@ -107,10 +107,6 @@
                         <p class="card-text"><%= parkingspot.numberOfSpots %> parking spots available, $<%= parkingspot.price  %>/hr</p>
                         <div class="btn-group" role="group" aria-label="Basic example">
                            <a href="/parkingspot/<%= parkingspot._id %>" class="btn btn-primary" role="button" aria-pressed="true">View</a>
-                           <a href="/parkingspot/<%= parkingspot._id  %>/edit" class="btn btn-warning" role="button" aria-pressed="true">Edit</a>
-                           <form class="delete-form" action="/parkingspot/<%= parkingspot._id%>?_method=DELETE" method="POST">
-                              <button class="btn btn-danger">Delete</button>
-                           </form>
                         </div>
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                      </div>

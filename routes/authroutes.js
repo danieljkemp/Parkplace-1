@@ -19,8 +19,6 @@ router.post("/register", function(req, res) {
     var email = req.body.email;
     var password = req.body.password;
     var userObj = { firstname: firstname, lastname: lastname, birthdate: birthdate, address: address, city: city, state: state, zip: zip, email: email };
-    console.log(email);
-    console.log(password);
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function() {
         console.log("You have succesfully registered for parkplace");
         user.create(userObj, function(err, newlyCreatedUser) {
@@ -60,7 +58,6 @@ router.post("/register", function(req, res) {
 router.post("/login", function(req, res) {
     var email = req.body.emailId;
     var password = req.body.userpassword;
-    console.log(req.body);
     firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
         user.find({ "email": email }, function(err, foundUser) {
             if (err) {
