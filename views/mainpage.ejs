@@ -57,92 +57,48 @@
             <h4 class="alert-heading">Well done!</h4>
             <p>You have successfully logged in to ParkPlace.</p>
           </div>
-          <div class="card-columns">
+        <div class="container">
+        <div class="row">
+          <div class="col">
+         <form action="/parkingspot/search" method="POST">
+            <div class="input-group">
+             <input type="text" id="searchTextField" class="form-control" placeholder="Search for parking spots here..." name="searchaddress" aria-label="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit">Go!</button>
+              </span>
+            </div>
+        </form>
+        </div>
+        </div>
+        <div class="container">
+      <div class="row row-offcanvas row-offcanvas-right">
+        <div class="col-12 col-md-9">
+          <p class="float-right hidden-md-up">
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="offcanvas">Toggle nav</button>
+          </p>
+          <div class="card-deck">
+            <% parkingspots.forEach(function(parkingspot){ %>
             <div class="card">
               <img class="card-img-top img-fluid" src="images/1.jpg" alt="Card image cap">
               <div class="card-block">
-                <h4 class="card-title"><i class="fa fa-user" aria-hidden="true"></i> Linus Torvalds</h4>
-                <h6 class="card-title"><i class="fa fa-map-marker" aria-hidden="true"></i> 519 South Beech Street, Syracuse, NY 13210</h6>
-                <p class="card-text">2 parking spots available, $3/hr</p>
+                <h4 class="card-title"><i class="fa fa-user" aria-hidden="true"></i> <%= parkingspot.firstname %></h4>
+                <h6 class="card-title"><i class="fa fa-map-marker" aria-hidden="true"></i><% if(parkingspot.address2!=null){ %>
+                <%= parkingspot.address1.concat(parkingspot.address2) %>
+                <% }else{ %>
+                <%= parkingspot.address1 %>
+                <% } %>
+                </h6>
+                <p class="card-text"><%= parkingspot.numberOfSpots %> parking spots available, $<%= parkingspot.price  %>/hr</p>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <a href="/parkingspot/<%= parkingspot._id %>" class="btn btn-primary" role="button" aria-pressed="true">View</a>
+                </div>
                 <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
               </div>
             </div>
-            <div class="card">
-              <img class="card-img-top img-fluid" src="images/5.jpg" alt="Card image cap">
-              <div class="card-block">
-                <h4 class="card-title"><i class="fa fa-user" aria-hidden="true"></i> Larry Page</h4>
-                <h6 class="card-title"><i class="fa fa-map-marker" aria-hidden="true"></i> 419 Euclid Avenue, Syracuse, NY 13210</h6>
-                <p class="card-text">4 parking spots available, $5/hr</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              </div>
-            </div>
-            <div class="card">
-              <img class="card-img-top img-fluid" src="images/2.png" alt="Card image cap">
-              <div class="card-block">
-                <h4 class="card-title"><i class="fa fa-car" aria-hidden="true"></i> Mark Zuckerberg</h4>
-                <h6 class="card-title"><i class="fa fa-map-marker" aria-hidden="true"></i> 519 Clarendon Street, Syracuse, NY 13210</h6>
-                <p class="card-text">3 parking spots available, $6/hr</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              </div>
-            </div>
-            <div class="card text-center">
-              <img class="card-img img-fluid" src="images/3.jpg" alt="Card image">
-              <div class="card-block">
-                <h4 class="card-title"><i class="fa fa-car" aria-hidden="true"></i> Drew Houston</h4>
-                <h6 class="card-title"><i class="fa fa-map-marker" aria-hidden="true"></i> 502 University Ave, Syracuse, NY 13210</h6>
-                <p class="card-text">1 parking spot available, $5/hr</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              </div>
-            </div>
-            <div class="card text-center">
-              <img class="card-img-top img-fluid" src="images/2.png" alt="Card image cap">
-              <div class="card-block">
-                <h4 class="card-title"><i class="fa fa-car" aria-hidden="true"></i> Mark Zuckerberg</h4>
-                <h6 class="card-title"><i class="fa fa-map-marker" aria-hidden="true"></i> 519 Clarendon Street, Syracuse, NY 13210</h6>
-                <p class="card-text">3 parking spots available, $6/hr</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              </div>
-            </div>
-            <div class="card text-center">
-              <img class="card-img-top img-fluid" src="images/6.jpg" alt="Card image cap">
-              <div class="card-block">
-                <h4 class="card-title"><i class="fa fa-car" aria-hidden="true"></i> Sergey Brin</h4>
-                <h6 class="card-title"><i class="fa fa-map-marker" aria-hidden="true"></i> 419 Euclid Avenue, Syracuse, NY 13210</h6>
-                <p class="card-text">3 parking spots available, $6/hr</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              </div>
-            </div>
-            <div class="card text-right">
-              <img class="card-img-top img-fluid" src="images/7.jpg" alt="Card image">
-              <div class="card-block">
-                <h4 class="card-title"><i class="fa fa-car" aria-hidden="true"></i> Anders Hejlsberg</h4>
-                <h6 class="card-title"><i class="fa fa-map-marker" aria-hidden="true"></i> 502 University Ave, Syracuse, NY 13210</h6>
-                <p class="card-text">1 parking spot available, $5/hr</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              </div>
-            </div>
-            <div class="card text-right">
-              <img class="card-img-top img-fluid" src="images/4.jpg" alt="Card image cap">
-              <div class="card-block">
-                <h4 class="card-title"><i class="fa fa-car" aria-hidden="true"></i> Bill Gates</h4>
-                <h6 class="card-title"><i class="fa fa-map-marker" aria-hidden="true"></i> 721 Maryland Avenue, Syracuse, NY 13210</h6>
-                <p class="card-text">3 parking spots available, $6/hr</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              </div>
-            </div>
-            <div class="card">
-              <img class="card-img-top img-fluid" src="images/1.jpg" alt="Card image cap">
-              <div class="card-block">
-                <h4 class="card-title"><i class="fa fa-user" aria-hidden="true"></i> Linus Torvalds</h4>
-                <h6 class="card-title"><i class="fa fa-map-marker" aria-hidden="true"></i> 519 South Beech Street, Syracuse, NY 13210</h6>
-                <p class="card-text">2 parking spots available, $3/hr</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              </div>
-            </div>
+            <% }); %>
           </div>
         </div><!--/span-->
-
-        <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar">
+         <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
             <a href="/main" class="list-group-item active">View spots</a>
             <a href="/parkingspot/new" class="list-group-item">Publish my spaces</a>
@@ -164,5 +120,20 @@
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCi06WMYxMv-5CiX4l4usV6eX5cN7Vr1Tw&libraries=places"></script>
+    <script>
+    
+      var defaultBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(-124.848974, 24.396308),
+        new google.maps.LatLng(-66.885444, 49.384358));
+
+        var input = document.getElementById('searchTextField');
+        var options = {
+                      bounds: defaultBounds,
+                      types: ['address']
+                    };
+
+       autocomplete = new google.maps.places.Autocomplete(input, options);
+    </script>
   </body>
 </html>
