@@ -10,6 +10,10 @@ var parkingspotSchema = new mongoose.Schema({
       },
       name: String
    },
+   booking: {
+      bookingmail:{type:String,default:""},
+      booked: {type:Boolean,default:false}
+   },
    firstname: String,
    lastname: String,
    address1: String,

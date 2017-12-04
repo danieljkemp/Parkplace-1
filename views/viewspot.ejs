@@ -54,6 +54,7 @@
             <a href="/main" class="list-group-item active">View spots</a>
             <a href="/parkingspot/new" class="list-group-item">Publish my spaces</a>
             <a href="/parkingspot/publisher/<%= user._id %>" class="list-group-item">View published spots</a>
+            <a href="/parkingspot/booking/bookedspots" class="list-group-item">View booked spots</a>
           </div>
              <div id="map"></div>
         </div>
@@ -72,7 +73,9 @@
                      <p>Email: <%= parkingspot.email %></p>
                       <p>Number of spots: <%= parkingspot.numberOfSpots %></p>
                        <p>Price: <%= parkingspot.price %></p>
+                       <% if(parkingspot["booking"]["booked"]==false){ %>
                        <a href="/parkingspot/payment/<%= parkingspot._id %>" class="btn btn-primary btn-lg active" role="button">Book spot</a>
+                       <% } %>
                 </div>
             </div>
         </div>

@@ -19,6 +19,32 @@ router.get("/parkingspot/new", function(req, res) {
 
 });
 
+//SHow booked parking spots
+router.get("/parkingspot/booking/bookedspots", function(req, res) {
+    var userEmail = firebase.auth().currentUser.email;
+    console.log("[Booked spot route]"+userEmail);
+    user.find({ "email": userEmail }, function(err, foundUser) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log("[Booked spot route:found user]"+foundUser);
+            parkingspot.find({
+                "booking": {
+                        "booked":true,
+                        "bookingmail":userEmail
+                }},function(err,foundSpots){
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        res.render("bookedspots",{user:foundUser,parkingspots:foundSpots});
+                    }
+                });
+        }
+    });
+});
+
 //Save parking spot data to database
 router.post("/parkingspot", function(req, res) {
     var author = {};
@@ -81,6 +107,8 @@ router.post("/parkingspot", function(req, res) {
                             console.log(err);
                         }
                         else {
+                            console.log("Newly Created Spot");
+                            console.log(newlyCreated);
                             res.redirect("/parkingspot/publisher/" + foundUser[0]._id);
                         }
                     });
@@ -111,6 +139,7 @@ router.get("/parkingspot/publisher/:id", function(req, res) {
     });
 
 });
+
 
 //Show specific parking spot
 router.get("/parkingspot/:id", function(req, res) {
@@ -261,6 +290,7 @@ router.post("/parkingspot/search", function(req, res) {
         }
     });
 });
+
 
 
 module.exports = router;

@@ -7,7 +7,7 @@ var methodOverride = require("method-override");
 var paypal = require('paypal-rest-sdk');
 var authRoute = require("./routes/authroutes");
 var parkingspotRoute = require("./routes/parkingspotroutes");
-var paymentRoute=require("./routes/paymentroutes");
+var paymentRoute = require("./routes/paymentroutes");
 var user = require("./models/user");
 var parkingspot = require("./models/parkingspot");
 mongoose.Promise = global.Promise;
@@ -17,7 +17,7 @@ paypal.configure({
     'mode': 'sandbox', //sandbox or live
     'client_id': 'AT_3KfFY9W-LTXCmb_CIExASuYD_63TOlbb3PIdRd7XHzc5WiUobYyAM_avVHgMlJC3SdssriR3ZjakK',
     'client_secret': 'EF46eSD8lMFbQy7e_dh--z0_E7XEKBnUPb8JihSb-SL8YYf3ETw9lx37qNn9LIhHv8q0NDC79mdhRnLZ'
-  });
+});
 
 
 app.set("view engine", "ejs");
